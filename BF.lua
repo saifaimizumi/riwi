@@ -1,5 +1,20 @@
 --lyxme Hub
+local Weaponlist = {}
+local Weapon = nil
 
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+    table.insert(Weaponlist,v.Name)
+end
+
+spawn(function()
+while wait() do
+if AutoEquiped then
+pcall(function()
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
+end)
+end
+end
+end)
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
@@ -18,6 +33,7 @@ local Window = Fluent:CreateWindow({
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "rbxassetid://11433532654" }),
+    Stats = Window:AddTab({ Title = "Stats", Icon = "pluscircle" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -33,11 +49,25 @@ do
 
 end
 
+local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
+        Title = "Select Weapon",
+        Values = {"", "", "", "", ""},
+        Multi = false,
+        Default = 1,
+    })
 
+    Dropdown:SetValue("")
 
-local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Farm", Default = false })
+    Dropdown:OnChanged(function(Value)
+        Weaponlist, function(currentOption)
+    Weapon = currentOption
+    end)
+
+local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Equip", Default = false })
 
     Toggle:OnChanged(function(Value)
+    function(a)
+    AutoEquiped = a
     end)
 
     Options.MyToggle:SetValue(false)
