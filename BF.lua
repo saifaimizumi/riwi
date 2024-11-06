@@ -126,7 +126,7 @@ Options.ToggleDe:SetValue(false)
 
 
 
-local ToggleSword = Tabs.Stats:AddToggle("ToggleSword", {Title = "Upgrade Sword",Description = ""Default = false })
+local ToggleSword = Tabs.Stats:AddToggle("ToggleSword", {Title = "Upgrade Sword",Description = "", Default = false })
 ToggleSword:OnChanged(function(Value)
     _G.Auto_Stats_Sword = Value
     end)
@@ -219,8 +219,6 @@ spawn(function()
         end
     end
 end)
-
-
 
 
 
