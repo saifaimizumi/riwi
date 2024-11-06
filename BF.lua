@@ -1,9 +1,8 @@
 --lyxme Hub
-local Weaponlist = {}
-local Weapon = nil
-
-for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
-    table.insert(Weaponlist,v.Name)
+function AutoHaki()
+    if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("HasBuso") then
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+    end
 end
 
 spawn(function()
@@ -49,29 +48,56 @@ do
 
 end
 
-local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
+local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
         Title = "Select Weapon",
-        Values = {"", "", "", "", ""},
+        Values = {'Melee','Sword','Blox Fruit'},
         Multi = false,
         Default = 1,
     })
-
-    Dropdown:SetValue("")
-
-    Dropdown:OnChanged(function(Value)
-        Weaponlist, function(currentOption)
-    Weapon = currentOption
+    DropdownSelectWeapon:SetValue('Melee')
+    DropdownSelectWeapon:OnChanged(function(Value)
+        ChooseWeapon = Value
     end)
-
-local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Equip", Default = false })
-
-    Toggle:OnChanged(function(Value)
-    function(a)
-    AutoEquiped = a
+    task.spawn(function()
+        while wait() do
+            pcall(function()
+                    if ChooseWeapon == "Melee" then
+                        for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                            if v.ToolTip == "Melee" then
+                                if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                    SelectWeapon = v.Name
+                                end
+                            end
+                        end
+                    elseif ChooseWeapon == "Sword" then
+                        for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                            if v.ToolTip == "Sword" then
+                                if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                    SelectWeapon = v.Name
+                                end
+                            end
+                        end
+                    elseif ChooseWeapon == "Blox Fruit" then
+                        for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                            if v.ToolTip == "Blox Fruit" then
+                                if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                    SelectWeapon = v.Name
+                                end
+                            end
+                        end
+                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                            if v.ToolTip == "Melee" then
+                                if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                    SelectWeapon = v.Name
+                                end
+                            end
+                        end
+                    end
+                end)
+        end
     end)
-
-    Options.MyToggle:SetValue(false)
-
+            
+                                 
 
 local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Collect Playtime Rewards", Default = false })
 
