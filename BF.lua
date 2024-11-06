@@ -1,19 +1,5 @@
 --lyxme Hub
-local Weapon = nil
 
-for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
-    table.insert(Weaponlist,v.Name)
-end
-
-spawn(function()
-while wait() do
-if AutoEquiped then
-pcall(function()
-game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
-end)
-end
-end
-end)
 
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
