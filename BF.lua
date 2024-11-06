@@ -1,8 +1,8 @@
 --lyxme Hub
-function AutoHaki()
-    if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("HasBuso") then
-        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
-    end
+local Weapon = nil
+
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+    table.insert(Weaponlist,v.Name)
 end
 
 spawn(function()
@@ -14,6 +14,7 @@ end)
 end
 end
 end)
+
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
@@ -32,7 +33,7 @@ local Window = Fluent:CreateWindow({
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "rbxassetid://11433532654" }),
-    Stats = Window:AddTab({ Title = "Stats", Icon = "pluscircle" }),
+    Stats = Window:AddTab({ Title = "Stats", Icon = "plus-circle" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -99,62 +100,11 @@ local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
             
                                  
 
-local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Collect Playtime Rewards", Default = false })
+local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Equip", Default = false })
 
-Toggle:OnChanged(function(Value)
-_G.Rewards = Value
-if _G.Rewards then
-     while _G.Rewards do wait()
-          local args = {
-               [1] = 1
-           }
-           
-          game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayRewards"):FireServer(unpack(args))
-          
-          local args = {
-               [1] = 2
-           }
-          
-          game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayRewards"):FireServer(unpack(args))
-          
-          local args = {
-               [1] = 3
-           }
-           
-           game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayRewards"):FireServer(unpack(args))
-           
-          
-           local args = {
-               [1] = 4
-           }
-           
-           game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayRewards"):FireServer(unpack(args))
-           
-
-           local args = {
-               [1] = 5
-           }
-           
-           game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayRewards"):FireServer(unpack(args))
-           
-
-           local args = {
-               [1] = 6
-           }
-           
-           game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayRewards"):FireServer(unpack(args))
-          
-
-           local args = {
-               [1] = 7
-           }
-           
-           game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayRewards"):FireServer(unpack(args))
-
-     end
-end
+Toggle:OnChanged(function(a)
+AutoEquip = a
 end)
-
 Options.MyToggle:SetValue(false)
 
 
@@ -173,6 +123,116 @@ local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "AntiAFK", Default = fal
     end)
 
     Options.MyToggle:SetValue(false)
+
+local ToggleMelee = Tabs.Stats:AddToggle("ToggleMelee", {Title = "Auto Melee",Description = "Nâng Melee", Default = false })
+ToggleMelee:OnChanged(function(Value)
+    _G.Auto_Stats_Melee = Value
+    end)
+Options.ToggleMelee:SetValue(false)
+
+
+
+local ToggleDe = Tabs.Stats:AddToggle("ToggleDe", {Title = "Auto Defense",Description = "Nâng Máu", Default = false })
+ToggleDe:OnChanged(function(Value)
+    _G.Auto_Stats_Defense = Value
+    end)
+Options.ToggleDe:SetValue(false)
+
+
+
+local ToggleSword = Tabs.Stats:AddToggle("ToggleSword", {Title = "Auto Sword",Description = "Nâng Kiếm", Default = false })
+ToggleSword:OnChanged(function(Value)
+    _G.Auto_Stats_Sword = Value
+    end)
+Options.ToggleSword:SetValue(false)
+
+
+
+local ToggleGun = Tabs.Stats:AddToggle("ToggleGun", {Title = "Auto Gun", Description = "Nâng Súng",Default = false })
+ToggleGun:OnChanged(function(Value)
+    _G.Auto_Stats_Gun = Value
+    end)
+Options.ToggleGun:SetValue(false)
+
+
+local ToggleFruit = Tabs.Stats:AddToggle("ToggleFruit", {Title = "Auto Demon Fruit",Description = "Nâng Trái Ác Quỷ", Default = false })
+ToggleFruit:OnChanged(function(Value)
+    _G.Auto_Stats_Devil_Fruit = Value
+    end)
+Options.ToggleFruit:SetValue(false)
+
+
+spawn(function()
+    while wait() do
+        if _G.Auto_Stats_Devil_Fruit then
+            local args = {
+                [1] = "AddPoint",
+                [2] = "Demon Fruit",
+                [3] = 3
+            }
+                        
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if _G.Auto_Stats_Gun then
+            local args = {
+                [1] = "AddPoint",
+                [2] = "Gun",
+                [3] = 3
+            }
+                        
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+        end
+    end
+end)
+
+
+spawn(function()
+    while wait() do
+        if _G.Auto_Stats_Sword then
+            local args = {
+                [1] = "AddPoint",
+                [2] = "Sword",
+                [3] = 3
+            }
+                        
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if _G.Auto_Stats_Defense then
+            local args = {
+                [1] = "AddPoint",
+                [2] = "Defense",
+                [3] = 3
+            }
+                        
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+        end
+    end
+end)
+
+
+spawn(function()
+    while wait() do
+        if _G.Auto_Stats_Melee then
+            local args = {
+                [1] = "AddPoint",
+                [2] = "Melee",
+                [3] = 3
+            }
+                        
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+        end
+    end
+end)
 
 
 
