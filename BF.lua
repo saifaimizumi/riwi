@@ -7,7 +7,7 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "lyxme Hub | BloxFruit ",
+    Title = "lyxme Hub | BloxFruit 7 November 2024",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(510, 390),
@@ -19,7 +19,7 @@ local Window = Fluent:CreateWindow({
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "rbxassetid://11433532654" }),
-    Stat = Window:AddTab({ Title = "Stat Tab", Icon = "graphic" }),
+    Stat = Window:AddTab({ Title = "Stat Tab", Icon = "pluscircle" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -28,7 +28,7 @@ local Options = Fluent.Options
 do
     Fluent:Notify({
         Title = "Notification",
-        Content = "lyxme Hub running script November,7,2024",
+        Content = "lyxme Hub running script",
         SubContent = "", -- Optional
         Duration = 10 -- Set to nil to make the notification not disappear
     })
