@@ -19,7 +19,7 @@ local Window = Fluent:CreateWindow({
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "rbxassetid://11433532654" }),
-    Stat = Window:AddTab({ Title = "Stat Tab", Icon = "graph" }),
+    Stat = Window:AddTab({ Title = "Stat Tab", Icon = "rbxassetid://110401460845589" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -110,7 +110,7 @@ local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "AntiAFK", Default = fal
 
     Options.MyToggle:SetValue(false)
 
-local ToggleMelee = Tabs.Stats:AddToggle("ToggleMelee", {Title = "Melee",Description = "", Default = false })
+local ToggleMelee = Tabs.Stat:AddToggle("ToggleMelee", {Title = "Melee",Description = "", Default = false })
 ToggleMelee:OnChanged(function(Value)
     _G.Auto_Stats_Melee = Value
     end)
@@ -118,7 +118,7 @@ Options.ToggleMelee:SetValue(false)
 
 
 
-local ToggleDe = Tabs.Stats:AddToggle("ToggleDe", {Title = "Defense",Description = "", Default = false })
+local ToggleDe = Tabs.Stat:AddToggle("ToggleDe", {Title = "Defense",Description = "", Default = false })
 ToggleDe:OnChanged(function(Value)
     _G.Auto_Stats_Defense = Value
     end)
@@ -126,7 +126,7 @@ Options.ToggleDe:SetValue(false)
 
 
 
-local ToggleSword = Tabs.Stats:AddToggle("ToggleSword", {Title = "Sword",Description = "", Default = false })
+local ToggleSword = Tabs.Stat:AddToggle("ToggleSword", {Title = "Sword",Description = "", Default = false })
 ToggleSword:OnChanged(function(Value)
     _G.Auto_Stats_Sword = Value
     end)
@@ -134,14 +134,14 @@ Options.ToggleSword:SetValue(false)
 
 
 
-local ToggleGun = Tabs.Stats:AddToggle("ToggleGun", {Title = "Gun", Description = "",Default = false })
+local ToggleGun = Tabs.Stat:AddToggle("ToggleGun", {Title = "Gun", Description = "",Default = false })
 ToggleGun:OnChanged(function(Value)
     _G.Auto_Stats_Gun = Value
     end)
 Options.ToggleGun:SetValue(false)
 
 
-local ToggleFruit = Tabs.Stats:AddToggle("ToggleFruit", {Title = "Blox Fruit",Description = "", Default = false })
+local ToggleFruit = Tabs.Stat:AddToggle("ToggleFruit", {Title = "Blox Fruit",Description = "", Default = false })
 ToggleFruit:OnChanged(function(Value)
     _G.Auto_Stats_Devil_Fruit = Value
     end)
