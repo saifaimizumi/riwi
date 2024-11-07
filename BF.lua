@@ -19,7 +19,7 @@ local Window = Fluent:CreateWindow({
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "rbxassetid://11433532654" }),
-    Stat = Window:AddTab({ Title = "Stat Tab", Icon = "pluscircle" }),
+    Stat = Window:AddTab({ Title = "Stat Tab", Icon = "plus-circle" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
