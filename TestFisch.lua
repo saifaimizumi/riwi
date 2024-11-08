@@ -53,7 +53,7 @@ local autoReelDelay = 0
 
 -- Window Setup
 local Window = Fluent:CreateWindow({
-    Title = "[🐟]Fisch | lyxme Hub 8 November 2024",
+    Title = "lyxme Hub | [🐟]Fisch 8 November 2024",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -69,7 +69,6 @@ local Window = Fluent:CreateWindow({
 -- Tabs
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "home" }),
-    Teleport = Window:AddTab({ Title = "Teleport", Icon = "compass" }),
     Gifting = Window:AddTab({ Title = "Gifting", Icon = "gift" })
 }
 
@@ -171,33 +170,9 @@ Tabs.Main:AddToggle("AutoReel", {
 })
 
 
-Tabs.Main:AddButton({
-        Title = "Delete Flag",
-        Description = "",
-        Callback = function()
-            local flags = workspace.active.flags
-            if flags then
-                flags:Destroy()
-            end
-        end
-    })
-
-local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Sell all", Default = false })
-
-Toggle:OnChanged(function(Value)
-        _G.sell = Value
-        if _G.sell then
-            while _G.sell do wait()
-                workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
-            end
-        end
-    end)
-Options.MyToggle:SetValue(false)
-
 
 -- Functions
-local fun
-        ction UpdatePlayerList()
+local function UpdatePlayerList()
     local newPlayerList = {}
     for _, player in pairs(Players:GetPlayers()) do
         if player ~= Player then
