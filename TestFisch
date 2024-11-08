@@ -45,15 +45,15 @@ local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/
 local selectedPlayer = ""
 local currentPlayerList = {}
 local Options = {}
-local autoShake = false
+local autoShake = true
 local shakeConnection = nil
 local autoShakeDelay = 0
-local autoReel = false
+local autoReel = true
 local autoReelDelay = 0
 
 -- Window Setup
 local Window = Fluent:CreateWindow({
-    Title = "lyxme Hub |Fisch[🐟]",
+    Title = "lyxme Hub | [🐟]Fisch 8 November 2024",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
