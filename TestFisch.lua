@@ -1,6 +1,3 @@
-local AutoCast = false
-
-
 local teleportSpots = {
     altar = CFrame.new(1296.320068359375, -808.5519409179688, -298.93817138671875),
     arch = CFrame.new(998.966796875, 126.6849365234375, -1237.1434326171875),
@@ -232,41 +229,6 @@ function ZoneCasting()
     end)
 end
 
-function Pidoras()
-    spawn(function()
-        while AutoCast do
-            local player = game.Players.LocalPlayer
-            local character = player.Character
-
-            if character then
-                local tool = character:FindFirstChildOfClass("Tool")
-
-                if tool then
-                    local hasBobber = tool:FindFirstChild("bobber")
-
-                    if not hasBobber then
-                        local castEvent = tool:FindFirstChild("events") and tool.events:FindFirstChild("cast")
-
-                        if castEvent then
-                            local Random = math.random() * (99 - 90) + 90
-                            local FRandom = string.format("%.4f", Random)
-                            print(FRandom)
-                            
-                            local Random2 = math.random(90, 99)
-                            castEvent:FireServer(Random2)
-
-                            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-                            if humanoidRootPart then
-                                humanoidRootPart.Anchored = false
-                            end
-                        end
-                    end
-                end
-                task.wait(1)
-            end
-        end
-    end)
-end
 
 -- Initial Loading Checks
 repeat wait() until game:IsLoaded()
@@ -443,7 +405,15 @@ Tabs.Main:AddToggle("AutoReel", {
 local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Cast", Default = false })
 
 Toggle:OnChanged(function(Value)
-        
+        while wait() do
+            local args = {
+                [1] = 100,
+                [2] = 1
+            }
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("Rapid Rod").events.cast:FireServer(unpack(args))
+        end)
+end
+end)
 Options.MyToggle:SetValue(false)
 
 Tabs.Main:AddButton({
@@ -471,7 +441,8 @@ Options.MyToggle:SetValue(false)
 
 
 -- Functions
-local function UpdatePlayerList()
+local fun
+        ction UpdatePlayerList()
     local newPlayerList = {}
     for _, player in pairs(Players:GetPlayers()) do
         if player ~= Player then
