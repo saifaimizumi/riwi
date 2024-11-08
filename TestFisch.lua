@@ -171,10 +171,13 @@ Tabs.Main:AddToggle("AutoReel", {
 })
 
 Tabs.Main:AddButton({
-        Title = "Sell one fish",
+        Title = "Delete Flag",
         Description = "",
         Callback = function()
-            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sell:InvokeServer()
+            local flags = workspace.active.flags
+            if flags then
+                flags:Destroy()
+            end
         end
     })
 
