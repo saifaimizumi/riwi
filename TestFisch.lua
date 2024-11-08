@@ -186,9 +186,6 @@ Options.MyToggle:SetValue(false)
 local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Sell", Default = false })
 
 Toggle:OnChanged(function(Value)
-        while wait() do
-            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
-        end
     end)
 Options.MyToggle:SetValue(false)
 
