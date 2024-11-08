@@ -169,10 +169,29 @@ Tabs.Main:AddToggle("AutoReel", {
     end
 })
 
-local Toggle = Tabs.Genaral:AddToggle("MyToggle", {Title = "Auto...", Default = false })
+local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Cast", Default = false })
 
 Toggle:OnChanged(function(Value)
-        
+        while wait() do
+            local args = {
+                 [1] = 100,
+                 [2] = 1,
+            }
+            
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("Rapid Rod").events.cast:FireServer(unpack(args))
+        end
+end)
+Options.MyToggle:SetValue(false)
+
+local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Sell", Default = false })
+
+Toggle:OnChanged(function(Value)
+        _G.sell = Value
+        if _G.sell then
+            while _G.sell do wait()
+                workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
+            end
+        end
 end)
 Options.MyToggle:SetValue(false)
 
