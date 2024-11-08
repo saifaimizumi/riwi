@@ -181,8 +181,10 @@ Tabs.Main:AddButton({
 local Toggle = Tabs.Genaral:AddToggle("MyToggle", {Title = "Sell all", Default = false })
 
 Toggle:OnChanged(function(Value)
-        while wait() do
+        _G.sell = true
+        while _G.sell wait() do
             workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
+            
         end
 end)
 Options.MyToggle:SetValue(false)
