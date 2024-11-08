@@ -169,7 +169,12 @@ Tabs.Main:AddToggle("AutoReel", {
     end
 })
 
+local Toggle = Tabs.Genaral:AddToggle("MyToggle", {Title = "Auto...", Default = false })
 
+Toggle:OnChanged(function(Value)
+        
+end)
+Options.MyToggle:SetValue(false)
 
 -- Functions
 local function UpdatePlayerList()
