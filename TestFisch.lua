@@ -24,9 +24,9 @@ _G.UIDestroy = function()
         shakeConnection:Disconnect()
     end
     autoShakeDelay = 0
-    autoReel = false
+    autoReel = true
     autoReelDelay = 0
-    getgenv().giftloop = false
+    getgenv().giftloop = true
     getgenv().autoconfirm = false
 end
 
