@@ -178,7 +178,7 @@ Tabs.Main:AddButton({
         end
     })
 
-local Toggle = Tabs.Genaral:AddToggle("MyToggle", {Title = "Sell all", Default = false })
+local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Sell all", Default = false })
 
 Toggle:OnChanged(function(Value)
         _G.sell = Value
@@ -189,6 +189,16 @@ Toggle:OnChanged(function(Value)
         end
     end)
 Options.MyToggle:SetValue(false)
+
+Tabs.Main:AddButton({
+        Title = "Delete flags",
+        Callback = function()
+            local flags = workspace.active.flags
+            if flags then
+                flags:Destroy()
+            end
+        end
+    })
 
 -- Functions
 local function UpdatePlayerList()
