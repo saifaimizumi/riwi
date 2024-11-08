@@ -170,19 +170,6 @@ Tabs.Main:AddToggle("AutoReel", {
     end
 })
 
-local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Cast", Default = false })
-
-Toggle:OnChanged(function(Value)
-        while wait() do
-            local args = {
-                [1] = 100,
-                [2] = 1
-            }
-            game:GetService("Players").LocalPlayer.Character:FindFirstChild("Rapid Rod").events.cast:FireServer(unpack(args))
-        end)
-end
-end)
-Options.MyToggle:SetValue(false)
 
 Tabs.Main:AddButton({
         Title = "Delete Flag",
