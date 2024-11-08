@@ -26,7 +26,7 @@ _G.UIDestroy = function()
     autoShakeDelay = 0
     autoReel = false
     autoReelDelay = 0
-    getgenv().giftloop = true
+    getgenv().giftloop = false
     getgenv().autoconfirm = false
 end
 
@@ -53,7 +53,7 @@ local autoReelDelay = 0
 
 -- Window Setup
 local Window = Fluent:CreateWindow({
-    Title = "lyxme Hub | [🐟]Fisch 8 November 2024",
+    Title = "[🐟]Fisch | lyxme Hub 8 November 2024",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -121,7 +121,7 @@ task.spawn(function()
     autoShakeToggle.SetValue(value) -- Toggle it on
     print("AutoShake set to " .. tostring(value))
 
-    task.wait(0)
+    task.wait(0.05)
 
     value = false
     autoShakeToggle.SetValue(value) -- Toggle it off
@@ -138,7 +138,7 @@ task.spawn(function()
     autoShakeToggle.SetValue(value) -- Toggle it on
     print("AutoShake set to " .. tostring(value))
 
-    task.wait(0)
+    task.wait(0.05)
 
     value = false
     autoShakeToggle.SetValue(value) -- Toggle it off
