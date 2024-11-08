@@ -24,7 +24,7 @@ _G.UIDestroy = function()
         shakeConnection:Disconnect()
     end
     autoShakeDelay = 0
-    autoReel = true
+    autoReel = false
     autoReelDelay = 0
     getgenv().giftloop = true
     getgenv().autoconfirm = false
@@ -45,10 +45,10 @@ local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/
 local selectedPlayer = ""
 local currentPlayerList = {}
 local Options = {}
-local autoShake = true
+local autoShake = false
 local shakeConnection = nil
 local autoShakeDelay = 0
-local autoReel = true
+local autoReel = false
 local autoReelDelay = 0
 
 -- Window Setup
