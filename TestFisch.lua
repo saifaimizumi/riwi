@@ -183,11 +183,6 @@ Toggle:OnChanged(function(Value)
 end)
 Options.MyToggle:SetValue(false)
 
-local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Sell", Default = false })
-
-Toggle:OnChanged(function(Value)
-    end)
-Options.MyToggle:SetValue(false)
 
 -- Functions
 local function UpdatePlayerList()
