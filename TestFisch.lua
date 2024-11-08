@@ -170,7 +170,22 @@ Tabs.Main:AddToggle("AutoReel", {
     end
 })
 
+Tabs.Main:AddButton({
+        Title = "Sell one fish",
+        Description = "",
+        Callback = function()
+            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sell:InvokeServer()
+        end
+    })
 
+local Toggle = Tabs.Genaral:AddToggle("MyToggle", {Title = "Sell all", Default = false })
+
+Toggle:OnChanged(function(Value)
+        while wait() do
+            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
+        end
+end)
+Options.MyToggle:SetValue(false)
 
 -- Functions
 local function UpdatePlayerList()
