@@ -70,7 +70,8 @@ local Window = Fluent:CreateWindow({
 local Tabs = {
     Genaral = Window:AddTab({ Title = "Genaral", Icon = "home" }),
     Merchant = Window:AddTab({ Title = "Merchant", Icon = "shopping-cart" }),
-    Gift = Window:AddTab({ Title = "Gift", Icon = "gift" })
+    Gift = Window:AddTab({ Title = "Gift", Icon = "gift" }),
+    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
 Window:SelectTab(Tabs.Main)
@@ -367,3 +368,80 @@ end)
 
 -- Initial Setup
 UpdatePlayerList()
+
+Tabs.Settings:AddButton({
+        Title = "rejoin server",
+        Description = "",
+        Callback = function()
+            local ts = game:GetService("TeleportService")
+    
+            local p = game:GetService("Players").LocalPlayer
+            
+             
+            
+            ts:Teleport(game.PlaceId, p)
+        end
+    })
+    
+    Tabs.Settings:AddButton({
+        Title = "Hop server",
+        Description = "",
+        Callback = function()
+            local Http = game:GetService("HttpService")
+            local TPS = game:GetService("TeleportService")
+            local Api = "https://games.roblox.com/v1/games/"
+            
+            local _place = game.PlaceId
+            local _servers = Api.._place.."/servers/Public?sortOrder=Asc&limit=100"
+            function ListServers(cursor)
+               local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
+               return Http:JSONDecode(Raw)
+            end
+            
+            local Server, Next; repeat
+               local Servers = ListServers(Next)
+               Server = Servers.data[1]
+               Next = Servers.nextPageCursor
+            until Server
+            
+            TPS:TeleportToPlaceInstance(_place,Server.id,game.Players.LocalPlayer)
+        end
+    })
+    
+    
+    
+
+-- Addons:
+-- SaveManager (Allows you to have a configuration system)
+-- InterfaceManager (Allows you to have a interface managment system)
+
+-- Hand the library over to our managers
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+
+-- Ignore keys that are used by ThemeManager.
+-- (we dont want configs to save themes, do we?)
+SaveManager:IgnoreThemeSettings()
+
+-- You can add indexes of elements the save manager should ignore
+SaveManager:SetIgnoreIndexes({})
+
+-- use case for doing it this way:
+-- a script hub could have themes in a global folder
+-- and game configs in a separate folder per game
+InterfaceManager:SetFolder("FluentScriptHub")
+SaveManager:SetFolder("FluentScriptHub/specific-game")
+
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+
+Window:SelectTab(1)
+
+Fluent:Notify({
+    Title = "Notification",
+    Content = "The script has been loaded.",
+    Duration = 5
+})
+
+-- You can use the SaveManager:LoadAutoloadConfig() to load a config
+-- which has been marked to be one that auto loads!
+SaveManager:LoadAutoloadConfig()
