@@ -1,5 +1,3 @@
---Webhook
-
 -- Initial Loading Checks
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players.LocalPlayer.Character
@@ -21,13 +19,13 @@ _G.UIDestroy = function()
     selectedPlayer = ""
     currentPlayerList = {}
     Options = {}
-    autoShake = true
+    autoShake = false
     if shakeConnection then
         shakeConnection:Disconnect()
     end
-    autoShakeDelay = 0
-    autoReel = true
-    autoReelDelay = 0
+    autoShakeDelay = 0.05
+    autoReel = false
+    autoReelDelay = 2
     getgenv().giftloop = false
     getgenv().autoconfirm = false
 end
@@ -47,17 +45,15 @@ local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/
 local selectedPlayer = ""
 local currentPlayerList = {}
 local Options = {}
-local autoShake = true
+local autoShake = false
 local shakeConnection = nil
-local autoShakeDelay = 0
-local autoReel = true
-local autoReelDelay = 0
-local SpectatePlys = false
-local SelectPly = false
+local autoShakeDelay = 0.05
+local autoReel = false
+local autoReelDelay = 2
 
 -- Window Setup
 local Window = Fluent:CreateWindow({
-    Title = "[🐟]Fisch lyxme Hub | 9 November 2024",
+    Title = "lyxme Hub |Fisch[🐟]",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -174,29 +170,46 @@ Tabs.Genaral:AddToggle("AutoReel", {
 })
 
 Tabs.Genaral:AddButton({
-    Title = "Redeem All Code",
-    Description = "",
-    Callback = function()
-        local args = {                
+        Title = "Redeem All Code",
+        Description = "redeem code📰",
+        Callback = function()
+            local args = {
                 [1] = "SorryForDowntime"
-            }
+            }            
             
             game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
 
-        local args = {
+            local args = {
                 [1] = "Scubaaaa"
             }
-            
+
             game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
 
-        local args = {
+            local arg = {
                 [1] = "FischFright2024"
             }
-
+            
             game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
-    end
+        end
+    })
+
+local section = Tabs.Genaral:AddSection("Sell💸")
+Tabs.Genaral:AddToggle("Sell💸", {
+    Title = "Sell one fish",
+    Description = "Need to hold fish"
+    Default = false,
+    Callback = function(Value)
+            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sell:InvokeServer()
+        end
     }
 
+Tabs.Genaral:AddToggle("Sell💸", {
+    Title = "Sell all fish",
+    Default = false,
+    Callback = function(Value)
+                workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
+            end
+        }
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
@@ -214,7 +227,7 @@ end
 local function TradeEquipped()
     if selectedPlayer == "" then
         Fluent:Notify({
-            Title = "Refresh Player",
+            Title = "Error",
             Content = "Select a player first!",
             Duration = 3
         })
@@ -228,8 +241,8 @@ local function TradeEquipped()
             equippedTool.offer:FireServer(targetPlayer)
         else
             Fluent:Notify({
-                Title = "Equip Item",
-                Content = "Hold an Item first!",
+                Title = "Error",
+                Content = "Hold an item first!",
                 Duration = 3
             })
         end
