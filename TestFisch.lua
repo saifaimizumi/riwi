@@ -56,7 +56,7 @@ local autoReelDelay = 0
 
 -- Window Setup
 local Window = Fluent:CreateWindow({
-    Title = "[🐟] Fisch | lyxme Hub 9 November 2024",
+    Title = "[🐟] Fisch | lyxme Hub 10 November 2024",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
