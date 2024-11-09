@@ -169,6 +169,30 @@ Tabs.Main:AddToggle("AutoReel", {
     end
 })
 
+local autoReelCastShakeT = Tabs.Main:AddToggle("autoReelCastShakeT", {Title = "Auto Thrown Rod", Default = false })
+    autoReelCastShakeT:OnChanged(function(Value)
+        autoReel = Value
+        AutoCast = Value
+        if AutoCast then
+            Pidoras()
+        end
+        if ShakeMode == "Mouse" then
+            autoShake = Value
+        end
+        AutoFish = Value
+        AutoFish()
+        if AutoCast == true and LocalCharacter:FindFirstChildOfClass("Tool") ~= nil then
+            local Tool = LocalCharacter:FindFirstChildOfClass("Tool")
+            if Tool:FindFirstChild("events"):WaitForChild("cast") ~= nil then
+                local Random = math.random() * (99 - 90) + 90
+                local FRandom = string.format("%.4f", Random)
+                print(FRandom)
+                local Random2 = math.random(90, 99)
+                Tool.events.cast:FireServer(Random2)
+            end
+        end
+    end)
+
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
@@ -186,7 +210,7 @@ end
 local function TradeEquipped()
     if selectedPlayer == "" then
         Fluent:Notify({
-            Title = "Error",
+            Title = "Refresh Player",
             Content = "Select a player first!",
             Duration = 3
         })
@@ -200,8 +224,8 @@ local function TradeEquipped()
             equippedTool.offer:FireServer(targetPlayer)
         else
             Fluent:Notify({
-                Title = "Error",
-                Content = "Hold an item first!",
+                Title = "Equip Item",
+                Content = "Hold an Item first!",
                 Duration = 3
             })
         end
