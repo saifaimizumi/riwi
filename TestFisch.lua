@@ -94,7 +94,6 @@ local Tabs = {
     Genaral = Window:AddTab({ Title = "Genaral", Icon = "home" }),
     Merchant = Window:AddTab({ Title = "Merchant", Icon = "shopping-cart" }),
     Gift = Window:AddTab({ Title = "Gift", Icon = "gift" }),
-    Configuration = Window:AddTab({ Title = "Configuration", Icon = "congratulation" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
