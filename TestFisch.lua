@@ -53,7 +53,7 @@ local autoReelDelay = 0
 
 -- Window Setup
 local Window = Fluent:CreateWindow({
-    Title = "lyxme Hub | [🐟]Fisch 8 November 2024",
+    Title = "[🐟]Fisch | 9 November 2024",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -169,29 +169,6 @@ Tabs.Main:AddToggle("AutoReel", {
     end
 })
 
-local autoReelCastShakeT = Tabs.Main:AddToggle("autoReelCastShakeT", {Title = "Auto Thrown Rod", Default = false })
-    autoReelCastShakeT:OnChanged(function(Value)
-        autoReel = Value
-        AutoCast = Value
-        if AutoCast then
-            Pidoras()
-        end
-        if ShakeMode == "Mouse" then
-            autoShake = Value
-        end
-        AutoFish = Value
-        AutoFish()
-        if AutoCast == true and LocalCharacter:FindFirstChildOfClass("Tool") ~= nil then
-            local Tool = LocalCharacter:FindFirstChildOfClass("Tool")
-            if Tool:FindFirstChild("events"):WaitForChild("cast") ~= nil then
-                local Random = math.random() * (99 - 90) + 90
-                local FRandom = string.format("%.4f", Random)
-                print(FRandom)
-                local Random2 = math.random(90, 99)
-                Tool.events.cast:FireServer(Random2)
-            end
-        end
-    end)
 
 -- Functions
 local function UpdatePlayerList()
