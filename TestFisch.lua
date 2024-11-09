@@ -78,11 +78,6 @@ local Tabs = {
 
 Window:SelectTab(Tabs.Main)
 
---Player
-for i,v in pairs(game:GetService("Players"):GetChildren()) do
-   table.insert(players,v.Name)
-end
-
 -- Auto Shake Function
 local function handleButtonClick(button)
     if not button.Visible then return end
