@@ -1,4 +1,50 @@
+--Webhook
+function WebhookManager()
+    spawn(function()
+        while WebhookLog do
+            task.wait(WebhookDelay)
+            local OSTime = os.time()
+            local playerLocalTime = os.date('*t', OSTime)
+            local formattedLocalTime = string.format('%02d:%02d:%02d',
+                                             playerLocalTime.hour,
+                                             playerLocalTime.min,
+                                             playerLocalTime.sec)
+            
+            local player = game.Players.LocalPlayer
+            local playerUserId = player.UserId
+            local playerProfileUrl = "https://www.roblox.com/users/" .. playerUserId .. "/profile"
 
+            local MoneyPlayer = game:GetService("Players").LocalPlayer.leaderstats["C$"].Value
+            local LvlPlayer = game:GetService("Players").LocalPlayer.leaderstats.Level.Value
+
+            local Embed = {
+                title = 'lyxme Hub',
+                color = ffccff,
+                fields = {
+                    { name = 'Player Profile', value = playerProfileUrl },
+                    { name = '', value = '', },
+                    { name = 'C$ - Money💸', value = '```' .. MoneyPlayer .. '```', inline = true },
+                    { name = 'Fishing Level🎣', value = '```' .. LvlPlayer .. '```', inline = true },
+                    { name = '', value = '', },
+                    { name = 'Sent Webhook', value = formattedLocalTime },
+                },
+                timestamp = os.date('!%Y-%m-%dT%H:%M:%SZ', OSTime),
+            }
+            local success, response = pcall(function()
+                return (syn and syn.request or http_request) {
+                    Url = WebhookUrl,
+                    Method = 'POST',
+                    Headers = { ['Content-Type'] = 'application/json' },
+                    Body = game:GetService('HttpService'):JSONEncode({
+                        username = 'lyxme Hub | Fisch🐟',
+                        avatar_url = 'https://cdn.discordapp.com/attachments/1201562911282303067/1304164519311839253/oUNcDYXgZdxxMPk8AANBADTobyc3iPPEBA7iItplv-tej9nj120t-origin.webp?ex=672fb6db&is=672e655b&hm=9fbd3abbcfc76f2fda6d4fca2f55338ddf6c17361778546157dbb19cb4017d60&',
+                        embeds = { Embed }
+                    }),
+                }
+            end)
+        end
+    end)
+end
 -- Initial Loading Checks
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players.LocalPlayer.Character
@@ -196,54 +242,6 @@ Tabs.Genaral:AddButton({
             game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
     end
 })
-
-function WebhookManager()
-    spawn(function()
-        while WebhookLog do
-            task.wait(WebhookDelay)
-            local OSTime = os.time()
-            local playerLocalTime = os.date('*t', OSTime)
-            local formattedLocalTime = string.format('%02d:%02d:%02d',
-                                             playerLocalTime.hour,
-                                             playerLocalTime.min,
-                                             playerLocalTime.sec)
-            
-            local player = game.Players.LocalPlayer
-            local playerUserId = player.UserId
-            local playerProfileUrl = "https://www.roblox.com/users/" .. playerUserId .. "/profile"
-
-            local MoneyPlayer = game:GetService("Players").LocalPlayer.leaderstats["C$"].Value
-            local LvlPlayer = game:GetService("Players").LocalPlayer.leaderstats.Level.Value
-
-            local Embed = {
-                title = 'lyxme Hub',
-                color = ffccff,
-                fields = {
-                    { name = 'Player Profile', value = playerProfileUrl },
-                    { name = '', value = '', },
-                    { name = 'C$ - Money💸', value = '```' .. MoneyPlayer .. '```', inline = true },
-                    { name = 'Fishing Level🎣', value = '```' .. LvlPlayer .. '```', inline = true },
-                    { name = '', value = '', },
-                    { name = 'Sent Webhook', value = formattedLocalTime },
-                },
-                timestamp = os.date('!%Y-%m-%dT%H:%M:%SZ', OSTime),
-            }
-            local success, response = pcall(function()
-                return (syn and syn.request or http_request) {
-                    Url = WebhookUrl,
-                    Method = 'POST',
-                    Headers = { ['Content-Type'] = 'application/json' },
-                    Body = game:GetService('HttpService'):JSONEncode({
-                        username = 'lyxme Hub | Fisch🐟',
-                        avatar_url = 'https://cdn.discordapp.com/attachments/1201562911282303067/1304164519311839253/oUNcDYXgZdxxMPk8AANBADTobyc3iPPEBA7iItplv-tej9nj120t-origin.webp?ex=672fb6db&is=672e655b&hm=9fbd3abbcfc76f2fda6d4fca2f55338ddf6c17361778546157dbb19cb4017d60&',
-                        embeds = { Embed }
-                    }),
-                }
-            end)
-        end
-    end)
-end
-
 local InputWebhook = Tabs.Webhook:AddInput("InputWebhook", {
         Title = "Webhook Url",
         Default = "",
