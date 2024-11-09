@@ -19,12 +19,12 @@ _G.UIDestroy = function()
     selectedPlayer = ""
     currentPlayerList = {}
     Options = {}
-    autoShake = false
+    autoShake = true
     if shakeConnection then
         shakeConnection:Disconnect()
     end
     autoShakeDelay = 0
-    autoReel = false
+    autoReel = true
     autoReelDelay = 0
     getgenv().giftloop = false
     getgenv().autoconfirm = false
@@ -45,10 +45,10 @@ local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/
 local selectedPlayer = ""
 local currentPlayerList = {}
 local Options = {}
-local autoShake = false
+local autoShake = true
 local shakeConnection = nil
 local autoShakeDelay = 0
-local autoReel = false
+local autoReel = true
 local autoReelDelay = 0
 
 -- Window Setup
@@ -190,7 +190,6 @@ Tabs.Genaral:AddButton({
             }
 
             game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
-        end
     end
 })
 
