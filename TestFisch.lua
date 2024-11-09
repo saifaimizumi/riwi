@@ -193,23 +193,7 @@ Tabs.Genaral:AddButton({
         end
     })
 
-local section = Tabs.Genaral:AddSection("Sell💸")
-Tabs.Genaral:AddToggle("Sell💸", {
-    Title = "Sell one fish",
-    Description = "Need to hold fish"
-    Default = false,
-    Callback = function(Value)
-            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sell:InvokeServer()
-        end
-    }
 
-Tabs.Genaral:AddToggle("Sell💸", {
-    Title = "Sell all fish",
-    Default = false,
-    Callback = function(Value)
-                workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
-            end
-        }
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
