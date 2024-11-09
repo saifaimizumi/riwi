@@ -54,6 +54,52 @@ local autoShakeDelay = 0
 local autoReel = false
 local autoReelDelay = 0
 
+function WebhookManager()
+    spawn(function()
+        while WebhookLog do
+            task.wait(WebhookDelay)
+            local OSTime = os.time()
+            local playerLocalTime = os.date('*t', OSTime)
+            local formattedLocalTime = string.format('%02d:%02d:%02d',
+                                             playerLocalTime.hour,
+                                             playerLocalTime.min,
+                                             playerLocalTime.sec)
+            
+            local player = game.Players.LocalPlayer
+            local playerUserId = player.UserId
+            local playerProfileUrl = "https://www.roblox.com/users/" .. playerUserId .. "/profile"
+
+            local MoneyPlayer = game:GetService("Players").LocalPlayer.leaderstats["C$"].Value
+            local LvlPlayer = game:GetService("Players").LocalPlayer.leaderstats.Level.Value
+
+            local Embed = {
+                title = 'lyxme Hub',
+                color = ffccff,
+                fields = {
+                    { name = 'Player Profile', value = playerProfileUrl },
+                    { name = '', value = '', },
+                    { name = 'C$ - Money💸', value = '```' .. MoneyPlayer .. '```', inline = true },
+                    { name = 'Fishing Level🎣', value = '```' .. LvlPlayer .. '```', inline = true },
+                    { name = '', value = '', },
+                    { name = 'Sent Webhook', value = formattedLocalTime },
+                },
+                timestamp = os.date('!%Y-%m-%dT%H:%M:%SZ', OSTime),
+            }
+            local success, response = pcall(function()
+                return (syn and syn.request or http_request) {
+                    Url = WebhookUrl,
+                    Method = 'POST',
+                    Headers = { ['Content-Type'] = 'application/json' },
+                    Body = game:GetService('HttpService'):JSONEncode({
+                        username = 'lyxme Hub | Fisch🐟',
+                        avatar_url = 'https://cdn.discordapp.com/attachments/1201562911282303067/1304164519311839253/oUNcDYXgZdxxMPk8AANBADTobyc3iPPEBA7iItplv-tej9nj120t-origin.webp?ex=672fb6db&is=672e655b&hm=9fbd3abbcfc76f2fda6d4fca2f55338ddf6c17361778546157dbb19cb4017d60&',
+                        embeds = { Embed }
+                    }),
+                }
+            end)
+        end
+    end)
+end
 -- Window Setup
 local Window = Fluent:CreateWindow({
     Title = "[🐟] Fisch | lyxme Hub 10 November 2024",
@@ -74,6 +120,7 @@ local Tabs = {
     Genaral = Window:AddTab({ Title = "Genaral", Icon = "home" }),
     Merchant = Window:AddTab({ Title = "Merchant", Icon = "shopping-cart" }),
     Gift = Window:AddTab({ Title = "Gift", Icon = "gift" }),
+    Webhook = Window:AddTab({ Title = "Webhook", Icon = "bell" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -198,7 +245,41 @@ Tabs.Genaral:AddButton({
         end
     })
 
-            
+    local section = Tabs.Webhook:AddSection("Webhook Stats Messages")
+    local InputWebhook = Tabs.Webhook:AddInput("InputWebhook", {
+        Title = "Webhook Url",
+        Default = "",
+        Placeholder = "URL",
+        Numeric = false,
+        Finished = false,
+        Callback = function(Value)
+            WebhookUrl = Value
+        end
+    })
+    InputWebhook:OnChanged(function()
+        print("Url Changed:", InputWebhook.Value)
+    end)
+    local SliderWebhook = Tabs.Webhook:AddSlider("SliderWebhook", {
+        Title = "Send Messages every ? seconds",
+        Description = "Prefer 60 seconds",
+        Default = 60,
+        Min = 1,
+        Max = 600,
+        Rounding = 1,
+        Callback = function(Value)
+            WebhookDelay = Value
+        end
+    })
+    SliderWebhook:OnChanged(function(Value)
+        print("Delay changed:", Value)
+    end)
+
+    local ToggleWebhook = Tabs.Webhook:AddToggle("ToggleWebhook", {Title = "Sent Webhook", Default = false })
+    ToggleWebhook:OnChanged(function()
+        WebhookLog = ToggleWebhook.Value
+        WebhookManager()
+    end)
+end        
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
