@@ -72,7 +72,6 @@ local Window = Fluent:CreateWindow({
 -- Tabs
 local Tabs = {
     Genaral = Window:AddTab({ Title = "Genaral", Icon = "home" }),
-    Player = Window:AddTab({ Title = "Player", Icon = "user" }),
     Gifting = Window:AddTab({ Title = "Gifting", Icon = "gift" })
 }
 
@@ -197,36 +196,7 @@ Tabs.Genaral:AddButton({
     end
 })
 
-Options.PlayerSelect = Tabs.Player:AddDropdown("PlayerSelect", {
-    Title = "Select Player",
-    Values = {},
-    Multi = false,
-    Default = "",
-    Callback = function(Value)
-        selectedPlayer = Value
-    end
-})
 
-Tabs.Player:AddButton({
-    Title = "Teleport to Player",
-    Description = "",
-    Callback = function()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[selectedPlayer].Character.HumanoidRootPart.CFrame
-        end
-    })
-
-Tabs.Player:AddToggle("Spectate Player", {
-    Title = "Spectate Player",
-    Default = false,
-    Callback = function(Value)
-            SpectatePlys = Value
-            local plr1 = game:GetService("Players").LocalPlayer.Character.Humanoid
-            local plr2 = game:GetService("Players"):FindFirstChild(SelectPly)
-            repeat wait(.1)
-                game:GetService("Workspace").Camera.CameraSubject = game:GetService("Players"):FindFirstChild(SelectPly).Character.Humanoid
-                until SpectatePlys == false
-            game:GetService("Workspace").Camera.CameraSubject = game:GetService("Players").LocalPlayer.Character.Humanoid
-        end
 
 -- Functions
 local function UpdatePlayerList()
