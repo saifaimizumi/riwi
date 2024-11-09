@@ -68,7 +68,7 @@ local Window = Fluent:CreateWindow({
 
 -- Tabs
 local Tabs = {
-    Main = Window:AddTab({ Title = "Main", Icon = "home" }),
+    Genaral = Window:AddTab({ Title = "Genaral", Icon = "home" }),
     Gifting = Window:AddTab({ Title = "Gifting", Icon = "gift" })
 }
 
@@ -86,7 +86,7 @@ local function handleButtonClick(button)
 end
 
 -- Main Tab Elements
-local autoShakeToggle = Tabs.Main:AddToggle("AutoShake", {
+local autoShakeToggle = Tabs.Genaral:AddToggle("AutoShake", {
     Title = "Auto Shake",
     Default = false,
     Callback = function(Value)
@@ -145,7 +145,7 @@ task.spawn(function()
     print("AutoShake set to " .. tostring(value))
 end)
 
-Tabs.Main:AddToggle("AutoReel", {
+Tabs.Genaral:AddToggle("AutoReel", {
     Title = "Auto Reel",
     Default = false,
     Callback = function(Value)
@@ -169,6 +169,30 @@ Tabs.Main:AddToggle("AutoReel", {
     end
 })
 
+Tabs.Genaral:AddButton({
+    Title = "Redeem All Code",
+    Description = "",
+    Callback = function()
+        local args = {                
+                [1] = "SorryForDowntime"
+            }
+            
+            game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
+
+        local args = {
+                [1] = "Scubaaaa"
+            }
+            
+            game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
+
+        local args = {
+                [1] = "FischFright2024"
+            }
+
+            game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
+        end
+    end
+})
 
 -- Functions
 local function UpdatePlayerList()
