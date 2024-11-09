@@ -53,6 +53,7 @@ local shakeConnection = nil
 local autoShakeDelay = 0
 local autoReel = false
 local autoReelDelay = 0
+local AntiDrown = false
 
 
 -- Window Setup
@@ -75,7 +76,7 @@ local Tabs = {
     Genaral = Window:AddTab({ Title = "Genaral", Icon = "home" }),
     Merchant = Window:AddTab({ Title = "Merchant", Icon = "shopping-cart" }),
     Gift = Window:AddTab({ Title = "Gift", Icon = "gift" }),
-    Webhook = Window:AddTab({ Title = "Webhook", Icon = "bell" }),
+    Configuration = Window:AddTab({ Title = "Configuration", Icon = "congratulation" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -200,41 +201,25 @@ Tabs.Genaral:AddButton({
         end
     })
 
-    local section = Tabs.Webhook:AddSection("Webhook Stats Messages")
-    local InputWebhook = Tabs.Webhook:AddInput("InputWebhook", {
-        Title = "Webhook Url",
-        Default = "",
-        Placeholder = "URL",
-        Numeric = false,
-        Finished = false,
-        Callback = function(Value)
-            WebhookUrl = Value
+local ToggleAntiDrown = Tabs.Configuration:AddToggle("ToggleAntiDrown", {Title = "Infinity Oxygen", Default = true })
+    ToggleAntiDrown:OnChanged(function()
+        AntiDrown = ToggleAntiDrown.Value
+        if AntiDrown == true then
+            if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == true then	
+                LocalCharacter.client.oxygen.Enabled = false	
+            end	
+            CharAddedAntiDrownCon = LocalPlayer.CharacterAdded:Connect(function()	
+                if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == true and AntiDrown == true then	
+                    LocalCharacter.client.oxygen.Enabled = false	
+                end	
+            end)
+        else	
+            if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == false then	
+                LocalCharacter.client.oxygen.Enabled = true	
+            end	
         end
-    })
-    InputWebhook:OnChanged(function()
-        print("Url Changed:", InputWebhook.Value)
-    end)
-    local SliderWebhook = Tabs.Webhook:AddSlider("SliderWebhook", {
-        Title = "Send Messages every ? seconds",
-        Description = "Prefer 60 seconds",
-        Default = 60,
-        Min = 1,
-        Max = 600,
-        Rounding = 1,
-        Callback = function(Value)
-            WebhookDelay = Value
-        end
-    })
-    SliderWebhook:OnChanged(function(Value)
-        print("Delay changed:", Value)
     end)
 
-    local ToggleWebhook = Tabs.Webhook:AddToggle("ToggleWebhook", {Title = "Sent Webhook", Default = false })
-    ToggleWebhook:OnChanged(function()
-        WebhookLog = ToggleWebhook.Value
-        WebhookManager()
-    end)
-end        
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
