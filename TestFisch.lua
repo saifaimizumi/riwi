@@ -31,13 +31,31 @@ _G.UIDestroy = function()
 end
 
 -- Core Services
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
-local PlayerGUI = Player:WaitForChild("PlayerGui")
-local VirtualInputManager = game:GetService("VirtualInputManager")
-local GuiService = game:GetService("GuiService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
+AnalyticsService = game:GetService("AnalyticsService")
+CollectionService = game:GetService("CollectionService")
+DataStoreService = game:GetService("DataStoreService")
+HttpService = game:GetService("HttpService")
+Lighting = game:GetService("Lighting")
+MarketplaceService = game:GetService("MarketplaceService")
+Players = game:GetService("Players")
+ReplicatedFirst = game:GetService("ReplicatedFirst")
+ReplicatedStorage = game:GetService("ReplicatedStorage")
+RunService = game:GetService("RunService")
+ServerScriptService = game:GetService("ServerScriptService")
+ServerStorage = game:GetService("ServerStorage")
+SoundService = game:GetService("SoundService")
+StarterGui = game:GetService("StarterGui")
+StarterPack = game:GetService("StarterPack")
+StarterPlayer = game:GetService("StarterPlayer")
+TeleportService = game:GetService("TeleportService")
+TweenService = game:GetService("TweenService")
+Teams = game:GetService("Teams")
+VirtualUser = game:GetService("VirtualUser")
+Workspace = game:GetService("Workspace")
+UserInputService = game:GetService("UserInputService")
+VirtualInputManager = game:GetService("VirtualInputManager")
+ContextActionService = game:GetService("ContextActionService")
+GuiService = game:GetService("GuiService")
 -- UI Loading
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
@@ -201,24 +219,6 @@ Tabs.Genaral:AddButton({
         end
     })
 
-local ToggleAntiDrown = Tabs.Configuration:AddToggle("ToggleAntiDrown", {Title = "Infinity Oxygen", Default = true })
-    ToggleAntiDrown:OnChanged(function()
-        AntiDrown = ToggleAntiDrown.Value
-        if AntiDrown == true then
-            if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == true then	
-                LocalCharacter.client.oxygen.Enabled = false	
-            end	
-            CharAddedAntiDrownCon = LocalPlayer.CharacterAdded:Connect(function()	
-                if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == true and AntiDrown == true then	
-                    LocalCharacter.client.oxygen.Enabled = false	
-                end	
-            end)
-        else	
-            if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == false then	
-                LocalCharacter.client.oxygen.Enabled = true	
-            end	
-        end
-    end)
 
 -- Functions
 local function UpdatePlayerList()
