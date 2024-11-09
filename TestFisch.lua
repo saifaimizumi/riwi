@@ -23,9 +23,9 @@ _G.UIDestroy = function()
     if shakeConnection then
         shakeConnection:Disconnect()
     end
-    autoShakeDelay = 0.05
+    autoShakeDelay = 0
     autoReel = false
-    autoReelDelay = 2
+    autoReelDelay = 0
     getgenv().giftloop = false
     getgenv().autoconfirm = false
 end
@@ -47,13 +47,13 @@ local currentPlayerList = {}
 local Options = {}
 local autoShake = false
 local shakeConnection = nil
-local autoShakeDelay = 0.05
+local autoShakeDelay = 0
 local autoReel = false
-local autoReelDelay = 2
+local autoReelDelay = 0
 
 -- Window Setup
 local Window = Fluent:CreateWindow({
-    Title = "lyxme Hub |Fisch[🐟]",
+    Title = "[🐟] Fisch | lyxme Hub 9 November 2024",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -69,7 +69,7 @@ local Window = Fluent:CreateWindow({
 -- Tabs
 local Tabs = {
     Genaral = Window:AddTab({ Title = "Genaral", Icon = "home" }),
-    Gifting = Window:AddTab({ Title = "Gifting", Icon = "gift" })
+    Gift = Window:AddTab({ Title = "Gift", Icon = "gift" })
 }
 
 Window:SelectTab(Tabs.Main)
@@ -294,7 +294,7 @@ local function startAutoConfirm()
 end
 
 -- Gifting Tab Elements
-Options.PlayerSelect = Tabs.Gifting:AddDropdown("PlayerSelect", {
+Options.PlayerSelect = Tabs.Gift:AddDropdown("PlayerSelect", {
     Title = "Select Player",
     Values = {},
     Multi = false,
@@ -304,12 +304,12 @@ Options.PlayerSelect = Tabs.Gifting:AddDropdown("PlayerSelect", {
     end
 })
 
-Tabs.Gifting:AddButton({
+Tabs.Gift:AddButton({
     Title = "Refresh Player List",
     Callback = UpdatePlayerList
 })
 
-Tabs.Gifting:AddToggle("AutoGift", {
+Tabs.Gift:AddToggle("AutoGift", {
     Title = "Auto Gift All Items",
     Default = false,
     Callback = function(Value)
@@ -320,12 +320,12 @@ Tabs.Gifting:AddToggle("AutoGift", {
     end
 })
 
-Tabs.Gifting:AddButton({
+Tabs.Gift:AddButton({
     Title = "Gift Equipped Fish",
     Callback = TradeEquipped
 })
 
-Tabs.Gifting:AddToggle("AutoConfirm", {
+Tabs.Gift:AddToggle("AutoConfirm", {
     Title = "Auto Confirm Gifts",
     Default = false,
     Callback = function(Value)
