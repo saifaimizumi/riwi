@@ -217,7 +217,8 @@ Tab.Merchant:AddButton({
                     Title = "Confirm",
                     Callback = function()
                         workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()             
-                    end
+                   
+                                    end
                 },
                 {
                     Title = "Cancel",
