@@ -1,11 +1,11 @@
 local args = {
-    [1] = "100m"
+    [1] = "100M"
 }
 
 game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
 
 local args = {
-    [1] = "200k"
+    [1] = "200K"
 }
 
 game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
