@@ -207,7 +207,7 @@ Tabs.Genaral:AddToggle("AutoReel", {
     end
 })
 
-
+local section = Tabs.Genaral:AddSection("Crab Cage")
 
 -- Functions
 local function UpdatePlayerList()
