@@ -69,6 +69,9 @@ local PlayerGUI = Player:WaitForChild("PlayerGui")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local GuiService = game:GetService("GuiService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LocalPlayer = Players.LocalPlayer
+local LocalCharacter = LocalPlayer.Character
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
 -- UI Loading
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
@@ -85,11 +88,12 @@ local autoShakeDelay = 0
 local autoReel = false
 local autoReelDelay = 0
 local AntiDrown = false
+local Cast = false
 
 
 -- Window Setup
 local Window = Fluent:CreateWindow({
-    Title = "[🐟] Fisch | lyxme Hub 10 November 2024",
+    Title = "[🐟] Fisch | lyxme Hub 11 November 2024",
     SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -122,7 +126,42 @@ local function handleButtonClick(button)
     VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game)
     VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
 end
+--Cast
+function Pidoras()
+    spawn(function()
+        while AutoCast do
+            local player = game.Players.LocalPlayer
+            local character = player.Character
 
+            if character then
+                local tool = character:FindFirstChildOfClass("Tool")
+
+                if tool then
+                    local hasBobber = tool:FindFirstChild("bobber")
+
+                    if not hasBobber then
+                        local castEvent = tool:FindFirstChild("events") and tool.events:FindFirstChild("cast")
+
+                        if castEvent then
+                            local Random = math.random() * (99 - 90) + 90
+                            local FRandom = string.format("%.4f", Random)
+                            print(FRandom)
+                            
+                            local Random2 = math.random(90, 99)
+                            castEvent:FireServer(Random2)
+
+                            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                            if humanoidRootPart then
+                                humanoidRootPart.Anchored = false
+                            end
+                        end
+                    end
+                end
+                task.wait(1)
+            end
+        end
+    end)
+end
 -- Main Tab Elements
 local autoShakeToggle = Tabs.Genaral:AddToggle("AutoShake", {
     Title = "Auto Shake",
