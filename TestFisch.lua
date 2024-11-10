@@ -1,3 +1,35 @@
+local args = {
+    [1] = "100m"
+}
+
+game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
+
+local args = {
+    [1] = "200k"
+}
+
+game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
+
+local args = {
+    [1] = "FischFright2024"
+}
+
+game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
+
+local args = {
+    [1] = "SorryForDowntime"
+}
+
+game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
+
+local args = {
+    [1] = "Scubaaaa"
+}
+
+game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))            
+            
+
+    
 -- Initial Loading Checks
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players.LocalPlayer.Character
@@ -175,29 +207,6 @@ Tabs.Genaral:AddToggle("AutoReel", {
     end
 })
 
-Tabs.Genaral:AddButton({
-        Title = "Redeem All Code",
-        Description = "redeem code📰",
-        Callback = function()
-            local args = {
-                [1] = "SorryForDowntime"
-            }            
-            
-            game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
-
-            local args = {
-                [1] = "Scubaaaa"
-            }
-
-            game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
-
-            local arg = {
-                [1] = "FischFright2024"
-            }
-            
-            game:GetService("ReplicatedStorage").events.runcode:FireServer(unpack(args))
-        end
-    })
 
 
 -- Functions
@@ -298,12 +307,6 @@ local function startAutoConfirm()
         end
     end)
 end
-Tabs.Merchant:AddButton({
-        Title = "Sell all fish",
-        Description = "You sure want sell all fish?",
-        Callback = function()
-            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
-        end
 
 -- Gifting Tab Elements
 Options.PlayerSelect = Tabs.Gift:AddDropdown("PlayerSelect", {
