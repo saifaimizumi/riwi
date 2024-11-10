@@ -205,31 +205,6 @@ Tabs.Merchant:AddButton({
         Callback = function()
             workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sell:InvokeServer()
         end
-Tab.Merchant:AddButton({
-    Title = "Sell all fish",
-    Description = "",
-    Callback = function()
-        Window:Dialog({
-            Title = "You sure want sell all fish?",
-            Content = "",
-            Buttons = {
-                {
-                    Title = "Confirm",
-                    Callback = function()
-                        workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()             
-                   
-                                    end
-                },
-                {
-                    Title = "Cancel",
-                    Callback = function()
-                        print("Cancelled the dialog.")
-                    end
-                }
-            }
-        })
-    end
-})
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
