@@ -162,6 +162,108 @@ function Pidoras()
         end
     end)
 end
+--Freez Player
+local initialPosition
+
+function rememberPosition()
+    spawn(function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        local rootPart = character:WaitForChild("HumanoidRootPart")
+ 
+        local initialCFrame = rootPart.CFrame
+ 
+        local bodyVelocity = Instance.new("BodyVelocity")
+        bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+        bodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+        bodyVelocity.Parent = rootPart
+ 
+        local bodyGyro = Instance.new("BodyGyro")
+        bodyGyro.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+        bodyGyro.D = 100
+        bodyGyro.P = 10000
+        bodyGyro.CFrame = initialCFrame
+        bodyGyro.Parent = rootPart
+ 
+        while AutoFreeze do
+            rootPart.CFrame = initialCFrame
+            task.wait(0.01)
+        end
+ 
+        if bodyVelocity then
+            bodyVelocity:Destroy()
+        end
+        if bodyGyro then
+            bodyGyro:Destroy()
+        end
+    end)
+end
+function AutoSellz()
+    spawn(function()
+        while AutoSell do
+            SellFishAndReturnAll()
+            task.wait(AutoSellDelay)
+        end
+    end)
+end
+function Appraise()
+    spawn(function()
+        while AutoAppraiser do
+            workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Appraiser"):WaitForChild("appraiser"):WaitForChild("appraise"):InvokeServer()
+            task.wait(0.1)
+        end
+    end)
+end
+
+function SellFishAndReturnAll()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local rootPart = character:WaitForChild("HumanoidRootPart")
+    local currentPosition = rootPart.CFrame
+    local sellPosition = CFrame.new(464, 151, 232)
+    local wasAutoFreezeActive = false
+    if AutoFreeze then
+        wasAutoFreezeActive = true
+        AutoFreeze = false
+    end
+    rootPart.CFrame = sellPosition
+    task.wait(0.5)
+    workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Marc Merchant"):WaitForChild("merchant"):WaitForChild("sellall"):InvokeServer()
+    task.wait(3)
+
+    rootPart.CFrame = currentPosition
+
+    if wasAutoFreezeActive then
+        AutoFreeze = true
+        rememberPosition()
+    end
+end
+function SellFishAndReturnOne()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local rootPart = character:WaitForChild("HumanoidRootPart")
+    local currentPosition = rootPart.CFrame
+    local sellPosition = CFrame.new(464, 151, 232)
+    local wasAutoFreezeActive = false
+    if AutoFreeze then
+        wasAutoFreezeActive = true
+        AutoFreeze = false
+    end
+    rootPart.CFrame = sellPosition
+    task.wait(0.5)
+    workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Marc Merchant"):WaitForChild("merchant"):WaitForChild("sell"):InvokeServer()
+    task.wait(3)
+
+    rootPart.CFrame = currentPosition
+
+    if wasAutoFreezeActive then
+        AutoFreeze = true
+        rememberPosition()
+    end
+end
+
+do
 -- Main Tab Elements
 local autoShakeToggle = Tabs.Genaral:AddToggle("AutoShake", {
     Title = "Auto Shake",
@@ -247,7 +349,55 @@ Tabs.Genaral:AddToggle("AutoReel", {
 })
 
 local section = Tabs.Genaral:AddSection("Crab Cage")
+local AutoFreezeT = Tabs.Genaral:AddToggle("MyFreeze", {
+        Title = "Freeze Position",
+        Description = "Freezes player position and rotation",
+        Default = false
+    })
+    AutoFreezeT:OnChanged(function()
+        AutoFreeze = AutoFreezeT.Value
+        if AutoFreeze then
+            rememberPosition()
+        end
+    end)
 
+    local AutoSellF = Tabs.Genaral:AddToggle("AutoSellF", {Title = "Auto Sell Fish", Default = false })
+    AutoSellF:OnChanged(function()
+        AutoSell = AutoSellF.Value
+        AutoSellz()
+    end)
+    Tabs.Genaral:AddButton({
+        Title = "Sell one fish",
+        Description = "Need to hold fish",
+        Callback = function()
+            SellFishAndReturnOne()
+        end
+    })
+    Tabs.Genaral:AddButton({
+        Title = "Sell All fishs",
+        Description = "Selling all fish anywhere!",
+        Callback = function()
+            Window:Dialog({
+                Title = "You sure want sell all fish?",
+                Content = "",
+                Buttons = {
+                    {
+                        Title = "Confirm",
+                        Callback = function()
+                            SellFishAndReturnAll()
+                            print("Fish Sold.")
+                        end
+                    },
+                    {
+                        Title = "Cancel",
+                        Callback = function()
+                            print("Pidr.")
+                        end
+                    }
+                }
+            })
+        end
+    })
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
