@@ -298,6 +298,12 @@ local function startAutoConfirm()
         end
     end)
 end
+Tabs.Merchant:AddButton({
+        Title = "Sell all fish",
+        Description = "You sure want sell all fish?",
+        Callback = function()
+            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sellall:InvokeServer()
+        end
 
 -- Gifting Tab Elements
 Options.PlayerSelect = Tabs.Gift:AddDropdown("PlayerSelect", {
