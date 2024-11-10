@@ -199,12 +199,7 @@ Tabs.Genaral:AddButton({
         end
     })
 
-Tabs.Merchant:AddButton({
-        Title = "Sell one fish",
-        Description = "Need to hold fish",
-        Callback = function()
-            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sell:InvokeServer()
-        end
+
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
