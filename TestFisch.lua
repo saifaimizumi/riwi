@@ -127,41 +127,7 @@ local function handleButtonClick(button)
     VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
 end
 --Cast
-function Pidoras()
-    spawn(function()
-        while AutoCast do
-            local player = game.Players.LocalPlayer
-            local character = player.Character
 
-            if character then
-                local tool = character:FindFirstChildOfClass("Tool")
-
-                if tool then
-                    local hasBobber = tool:FindFirstChild("bobber")
-
-                    if not hasBobber then
-                        local castEvent = tool:FindFirstChild("events") and tool.events:FindFirstChild("cast")
-
-                        if castEvent then
-                            local Random = math.random() * (99 - 90) + 90
-                            local FRandom = string.format("%.4f", Random)
-                            print(FRandom)
-                            
-                            local Random2 = math.random(90, 99)
-                            castEvent:FireServer(Random2)
-
-                            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-                            if humanoidRootPart then
-                                humanoidRootPart.Anchored = false
-                            end
-                        end
-                    end
-                end
-                task.wait(1)
-            end
-        end
-    end)
-end
 
 -- Main Tab Elements
 local autoShakeToggle = Tabs.Genaral:AddToggle("AutoShake", {
@@ -248,8 +214,12 @@ Tabs.Genaral:AddToggle("AutoReel", {
 })
 
 local section = Tabs.Genaral:AddSection("Crab Cage")
-
-    
+Tabs.Merchant:AddButton({
+        Title = "Sell one fish",
+        Description = "Need to hold fish",
+        Callback = function()
+            workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sell:InvokeServer()
+        end
 -- Functions
 local function UpdatePlayerList()
     local newPlayerList = {}
