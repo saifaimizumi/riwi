@@ -204,7 +204,7 @@ Tabs.Merchant:AddButton({
         Description = "Need to hold fish",
         Callback = function()
             workspace.world.npcs:FindFirstChild("Marc Merchant").merchant.sell:InvokeServer()
-
+        end
 Tab.Merchant:AddButton({
     Title = "Sell all fish",
     Description = "",
